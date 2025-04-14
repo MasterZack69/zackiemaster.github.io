@@ -19,6 +19,10 @@
         {
             "source": "/OTT",
             "destination": "/OTT.html"
+        },
+        {
+            "source": "/content",
+            "destination": "/content.html"
         }
     ]
 }

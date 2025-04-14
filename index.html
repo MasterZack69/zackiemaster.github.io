@@ -127,52 +127,28 @@
         </div>
 `;
         function loadPage(pageUrl) {
-  if (pageUrl === 'content.html') {
-    $.ajax({
-      url: pageUrl,
-      type: "GET",
-      dataType: "html",
-      success: function (data) {
-        // Parse the returned HTML (we assume the <body> content is what you need)
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const bodyContent = doc.body.innerHTML;
-
-        // Get your container and clear existing content
-        const container = document.getElementById("content");
-        container.innerHTML = "";
-
-        // Attach a shadow root to isolate styling
-        const shadowRoot = container.attachShadow({ mode: 'open' });
-        shadowRoot.innerHTML = bodyContent;
-        
-        // Optionally, if the content.html has its own internal <style> tags in the body,
-        // they’ll be encapsulated here. If not, you can programmatically add a link tag:
-        // const styleLink = document.createElement('link');
-        // styleLink.rel = 'stylesheet';
-        // styleLink.href = 'content-specific-style.css';
-        // shadowRoot.prepend(styleLink);
-
-        closeNav();
-        history.pushState({ content: data }, null, "/content");
-      },
-      error: function (xhr, status, error) {
-        console.error("Error loading page: " + status, error);
-      }
-    });
+  if (pageUrl === 'index.html') {
+    $("#content").html(homepageContent);
+    closeNav();
+    history.pushState({ content: homepageContent }, null, "/");
     return;
   }
-  
-  // Handle other pages normally…
+
   $.ajax({
     url: pageUrl,
     type: "GET",
     dataType: "html",
     success: function (data) {
-      $("#content").html(data);
+      // Extract just the inner content from the loaded HTML
+      var newContent = $(data).find("#content").html();
+
+      // Inject the clean content into the main container
+      $("#content").html(newContent);
+
       var pageName = pageUrl.split(".")[0];
       var newUrl = (pageName === "index") ? "/" : "/" + pageName;
-      history.pushState({ content: data }, null, newUrl);
+      history.pushState({ content: newContent }, null, newUrl);
+
       closeNav();
     },
     error: function (xhr, status, error) {
@@ -182,6 +158,7 @@
 }
 
 
+
 function getContentContainerId(pageUrl) {
 
     var pageName = pageUrl.split(".")[0];
@@ -189,13 +166,13 @@ function getContentContainerId(pageUrl) {
 }
 
 window.addEventListener('popstate', function (event) {
-    if (event.state && event.state.content) {
-        $("#content").html(event.state.content);
-    } else {
-
-        $("#content").html(homepageContent)
-    }
+  if (event.state && event.state.content) {
+    $("#content").html(event.state.content);
+  } else {
+    $("#content").html(homepageContent);
+  }
 });
+
 
       </script>
 

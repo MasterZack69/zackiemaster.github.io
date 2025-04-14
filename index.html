@@ -127,34 +127,33 @@
         </div>
 `;
         function loadPage(pageUrl) {
-  if (pageUrl === 'index.html') {
-    $("#content").html(homepageContent);
-    closeNav();
-    history.pushState({ content: homepageContent }, null, "/");
-    return;
-  }
-
-  $.ajax({
-    url: pageUrl,
-    type: "GET",
-    dataType: "html",
-    success: function (data) {
-      // Extract just the inner content from the loaded HTML
-      var newContent = $(data).find("#content").html();
-
-      // Inject the clean content into the main container
-      $("#content").html(newContent);
-
-      var pageName = pageUrl.split(".")[0];
-      var newUrl = (pageName === "index") ? "/" : "/" + pageName;
-      history.pushState({ content: newContent }, null, newUrl);
-
-      closeNav();
-    },
-    error: function (xhr, status, error) {
-      console.error("Error loading page: " + status, error);
+          if (pageUrl === 'index.html') {
+        $("#content").html(homepageContent);
+        closeNav();
+        history.pushState({ content: homepageContent }, null, "/");
+        return;
     }
-  });
+
+    $.ajax({
+        url: pageUrl,
+        type: "GET",
+        dataType: "html",
+        success: function (data) {
+
+            $("#content").html(data);
+
+            var pageName = pageUrl.split(".")[0];
+            var newUrl = (pageName === "index") ? "/" :"/" + pageName;
+
+            history.pushState({ content: data }, null, newUrl);
+
+            closeNav(); 
+        },
+        error: function (xhr, status, error) {
+            console.error("Error loading page: " + status, error);
+        }
+    });
+
 }
 
 

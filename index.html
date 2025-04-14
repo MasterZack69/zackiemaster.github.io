@@ -127,34 +127,60 @@
         </div>
 `;
         function loadPage(pageUrl) {
-          if (pageUrl === 'index.html') {
-        $("#content").html(homepageContent);
-        closeNav();
-        history.pushState({ content: homepageContent }, null, "/");
-        return;
-    }
-
+  if (pageUrl === 'content.html') {
     $.ajax({
-        url: pageUrl,
-        type: "GET",
-        dataType: "html",
-        success: function (data) {
+      url: pageUrl,
+      type: "GET",
+      dataType: "html",
+      success: function (data) {
+        // Parse the returned HTML (we assume the <body> content is what you need)
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+        const bodyContent = doc.body.innerHTML;
 
-            $("#content").html(data);
+        // Get your container and clear existing content
+        const container = document.getElementById("content");
+        container.innerHTML = "";
 
-            var pageName = pageUrl.split(".")[0];
-            var newUrl = (pageName === "index") ? "/" :"/" + pageName;
+        // Attach a shadow root to isolate styling
+        const shadowRoot = container.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = bodyContent;
+        
+        // Optionally, if the content.html has its own internal <style> tags in the body,
+        // they’ll be encapsulated here. If not, you can programmatically add a link tag:
+        // const styleLink = document.createElement('link');
+        // styleLink.rel = 'stylesheet';
+        // styleLink.href = 'content-specific-style.css';
+        // shadowRoot.prepend(styleLink);
 
-            history.pushState({ content: data }, null, newUrl);
-
-            closeNav(); 
-        },
-        error: function (xhr, status, error) {
-            console.error("Error loading page: " + status, error);
-        }
+        closeNav();
+        history.pushState({ content: data }, null, "/content");
+      },
+      error: function (xhr, status, error) {
+        console.error("Error loading page: " + status, error);
+      }
     });
-
+    return;
+  }
+  
+  // Handle other pages normally…
+  $.ajax({
+    url: pageUrl,
+    type: "GET",
+    dataType: "html",
+    success: function (data) {
+      $("#content").html(data);
+      var pageName = pageUrl.split(".")[0];
+      var newUrl = (pageName === "index") ? "/" : "/" + pageName;
+      history.pushState({ content: data }, null, newUrl);
+      closeNav();
+    },
+    error: function (xhr, status, error) {
+      console.error("Error loading page: " + status, error);
+    }
+  });
 }
+
 
 function getContentContainerId(pageUrl) {
 

@@ -38,6 +38,10 @@ body {
     color: var(--text-primary);
     background-color: var(--bg-secondary);
 }
+css
+#storyTitle {
+    font-size: 8px;
+    }
 
 a {
     text-decoration: none;

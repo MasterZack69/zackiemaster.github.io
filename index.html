@@ -9,20 +9,15 @@
 <link rel="manifest" href="/site.webmanifest">
     <title>MasterZack's Jeevankatha</title>
     
-    <!-- Force black background immediately -->
     <style>
         html, body { background-color: #000000; color: #ffffff; }
     </style>
-    <!-- Firefox-specific fix for sidebar -->
     <script>
         // Detect Firefox
         const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         
         if (isFirefox) {
-            // Add Firefox-specific class
             document.documentElement.classList.add('firefox');
-            
-            // Apply the correct sidebar state immediately
             const savedState = localStorage.getItem('sidebarState');
             if (savedState === 'collapsed') {
                 document.documentElement.classList.add('sidebar-collapsed');
@@ -39,7 +34,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar for navigation -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h2>My Stories</h2>
@@ -57,12 +51,10 @@
             
             <nav class="sidebar-nav">
                 <ul id="story-list">
-                    <!-- Story links will be loaded dynamically -->
                 </ul>
             </nav>
             
             <div class="sidebar-footer">
-                <!-- Removed theme toggle, footer is now empty or can be used for something else -->
             </div>
         </aside>
 

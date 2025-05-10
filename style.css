@@ -38,7 +38,8 @@ body {
     color: var(--text-primary);
     background-color: var(--bg-secondary);
 }
-css
+
+
 #storyTitle {
     font-size: 8px;
     }
@@ -51,11 +52,6 @@ a {
 p {
     font-family: Josefin Sans;
 }
-
-css
-#storyTitle {
-    font-size: 14px;
-    }
 
 ul {
     list-style: none;

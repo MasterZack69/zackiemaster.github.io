@@ -21,7 +21,7 @@
 
 /* Base font size increase for entire site */
 html {
-    font-size: 18px;
+    font-size: 8px;
     color-scheme: dark;
     background-color: #000000;
 }
@@ -38,11 +38,6 @@ body {
     color: var(--text-primary);
     background-color: var(--bg-secondary);
 }
-
-
-#storyTitle {
-    font-size: 20px;
-    }
 
 a {
     text-decoration: none;

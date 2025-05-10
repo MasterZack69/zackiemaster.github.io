@@ -481,6 +481,9 @@ html.firefox.transitions-enabled .sidebar {
         width: 100%;
         justify-content: space-between;
     }
+
+    .content {
+        font-size: 14px;
 }
 
 /* ========== ANIMATIONS ========== */

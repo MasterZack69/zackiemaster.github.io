@@ -1,8 +1,8 @@
 {
     "rewrites": [
         {
-            "source": "/anime",
-            "destination": "/anime.html"
+            "source": "/#/anime",
+            "destination": "/#/anime"
         },
         {
             "source": "/atheism",

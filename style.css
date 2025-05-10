@@ -464,6 +464,9 @@ html.firefox.transitions-enabled .sidebar {
     .content-footer {
         padding: 1rem;
     }
+
+    html {
+        font-size: 22px;
 }
 
 @media (max-width: 576px) {

@@ -389,8 +389,6 @@ html.firefox.transitions-enabled .sidebar {
     border-radius: 4px;
     font-size: 0.9rem;
 }
-.content-container #storyTitle {
-    font-size: 1.5rem;
 
 /* Loading indicator */
 .loading {

@@ -48,6 +48,11 @@ p {
     font-family: Josefin Sans;
 }
 
+css
+#storyTitle {
+    font-size: 18px;
+    }
+
 ul {
     list-style: none;
 }

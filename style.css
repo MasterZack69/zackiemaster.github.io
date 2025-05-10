@@ -1,42 +1,494 @@
-body {
-      background-color: black;
-      color: white;
-      font-family: Josefin Sans;
-      font-size: 20px;
-      display: flex;
-    }
-      p {
-    font-family: Josefin Sans;
-    font-size: 18px; 
-    font-style: normal; 
-    font-variant: normal; 
-    font-weight: 400; 
-    line-height: 29px;
-    text-align: center;
-      }
+/* ========== BASE STYLES ========== */
+:root {
+    /* AMOLED Black Theme Variables */
+    --bg-primary: #000000;
+    --bg-secondary: #000000;
+    --bg-tertiary: #121212;
+    --text-primary: #ffffff;
+    --text-secondary: #adb5bd;
+    --accent: #4cc9f0;
+    --accent-hover: #7dd3f9;
+    --border: #333333;
+    --shadow: rgba(0, 0, 0, 0.5);
     
+    /* Layout Variables */
+    --sidebar-width: 280px;
+    --sidebar-collapsed-width: 70px;
+    --header-height: 60px;
+    --transition-speed: 0.3s;
+    --content-max-width: 900px;
+}
 
-    h2 {
-      font-size: 1.5em;
-      text-align: center;
+/* Base font size increase for entire site */
+html {
+    font-size: 18px;
+    color-scheme: dark;
+    background-color: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+p {
+    font-family: Josefin Sans;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+    color: inherit;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Firefox-specific sidebar fixes */
+html.firefox.sidebar-expanded .sidebar {
+    width: var(--sidebar-width) !important;
+}
+
+html.firefox.sidebar-collapsed .sidebar {
+    width: var(--sidebar-collapsed-width) !important;
+}
+
+/* Prevent transitions during page load in Firefox */
+html.firefox .sidebar {
+    transition: none !important;
+}
+
+/* Re-enable transitions after the page has fully loaded */
+html.firefox.transitions-enabled .sidebar {
+    transition: transform var(--transition-speed), width var(--transition-speed) !important;
+}
+
+
+/* ========== LAYOUT ========== */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--bg-primary);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    box-shadow: 2px 0 10px var(--shadow);
+    transition: transform var(--transition-speed), width var(--transition-speed);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Collapsed sidebar */
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+/* Header of the sidebar with title and toggle button */
+.sidebar-header {
+    height: var(--header-height);
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+}
+
+.sidebar-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.toggle-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+/* Search area */
+.sidebar-search {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-secondary);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+}
+
+.search-container i {
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+}
+
+#search-input {
+    background: none;
+    border: none;
+    width: 100%;
+    color: var(--text-primary);
+    outline: none;
+}
+
+#search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Navigation list */
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 0;
+}
+
+.sidebar-nav ul li a {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-nav ul li a span {
+    padding-left: 0.5rem;
+}
+
+.sidebar-nav ul li.active a {
+    color: var(--accent);
+    background-color: var(--bg-secondary);
+    border-left-color: var(--accent);
+}
+
+.sidebar-nav ul li:not(.active) a:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Sidebar footer - empty now that theme toggle is removed */
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+    display: none; /* Hide since there's no content */
+}
+
+/* Collapsed sidebar styles */
+.sidebar.collapsed .sidebar-header h2,
+.sidebar.collapsed .sidebar-search {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-nav ul li a span {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-nav ul li a {
+    justify-content: center;
+}
+
+/* ========== MAIN CONTENT ========== */
+.content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    transition: margin-left var(--transition-speed);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-secondary);
+}
+
+.sidebar.collapsed ~ .content {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+/* Content header */
+.content-header {
+    height: var(--header-height);
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.mobile-toggle {
+    display: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-secondary);
+}
+
+.content-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.controls button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-secondary);
+    transition: all 0.2s;
+}
+
+.controls button:hover {
+    background-color: var(--bg-tertiary);
+}
+
+/* Main content container */
+.content-container {
+    flex: 1;
+    padding: 2rem;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    width: 100%;
+    font-size: 1.1rem; /* Larger text in the content area */
+}
+
+/* Footer area - with navigation buttons only */
+.content-footer {
+    background-color: var(--bg-primary);
+    border-top: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Navigation buttons */
+.navigation-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-button {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-secondary);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.nav-button:not(:disabled):hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+/* ========== STORY CONTENT STYLES ========== */
+/* These styles will apply to your loaded story content */
+.content-container h2 {
+    margin: 1.5rem 0 1rem;
+    font-weight: 600;
+}
+
+.content-container h3 {
+    margin: 1.25rem 0 0.75rem;
+    font-weight: 500;
+}
+
+.content-container p {
+    margin-bottom: 1rem;
+}
+
+.content-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+}
+
+.content-container ul, 
+.content-container ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.content-container blockquote {
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    border-left: 4px solid var(--accent);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.content-container pre {
+    background-color: var(--bg-tertiary);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.content-container code {
+    font-family: monospace;
+    background-color: var(--bg-tertiary);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* Loading indicator */
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+}
+
+.loading i {
+    margin-right: 0.5rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error message */
+.error-message {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #ff6b6b;
+}
+
+.error-message i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.error-message h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.error-message button {
+    padding: 0.5rem 1rem;
+    background-color: var(--accent);
+    color: var(--text-primary);
+    border-radius: 20px;
+    margin-top: 1rem;
+    transition: all 0.2s;
+}
+
+.error-message button:hover {
+    background-color: var(--accent-hover);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: var(--sidebar-width) !important;
     }
-
-    ul {
-      list-style-type: none;
+    
+    .sidebar.mobile-active {
+        transform: translateX(0);
     }
+    
+    .content {
+        margin-left: 0 !important;
+    }
+    
+    .mobile-toggle {
+        display: flex;
+    }
+    
+    .content-header {
+        padding: 0 1rem;
+    }
+    
+    .content-container {
+        padding: 1.5rem;
+    }
+    
+    .content-footer {
+        padding: 1rem;
+    }
+}
 
-   @media only screen and (max-width: 599px) {
-           #content {
-                 flex: 1;
-                 padding: 12px;
-           }
-           
-   }
+@media (max-width: 576px) {
+    .content-header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .content-footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .navigation-buttons {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
 
-   @media only screen and (min-width: 600px) {
-          #content {
-                flex: 1;
-                padding: 24px 260px 24px 260px;
-          }
-   }
-           
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}

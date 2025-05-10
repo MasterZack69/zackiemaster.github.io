@@ -1,234 +1,102 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="stylesheet" href="style.css">
+    <title>MasterZack's Jeevankatha</title>
     
-<title>MasterZack's JeevanKatha</title>
-<style>
-     #sidebar {
-      height: 100%;
-      width: 0%;
-      position: fixed;
-      top: 0;
-      right: 0;
-      background-color: #111;
-      overflow-x: hidden;
-      transition: width 0.3s;
-      color: white;
-     }
-
-
-    #sidebar a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 18px;
-      color: white;
-      display: block;
-      transition: 0.2s;
-    }
-
-    #sidebar a:hover {
-      color: #f1f1f1;
-    }
-
-    #sidebar .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-    }
-
-    #main {
-      transition: margin-right .5s;
-      margin-left: 0;
-      position: relative;
-        }     
-
-    .openbtn {
-      font-size: 20px;
-      cursor: pointer;
-      background-color: #111;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      position: absolute;
-      left: 0;
-    }
-
-    .openbtn:hover {
-      background-color: #444;
-    }
-
-    @media only screen and (min-width: 600px) {
-    #sidebar {
-        width: 0;
-        padding-top: 3.25%;
-    }
-}
-
-        @media only screen and (max-width: 599px) {
-        #sidebar {
-        width: 0;
-        padding-top: 11%;
-    }
-
+    <!-- Force black background immediately -->
+    <style>
+        html, body { background-color: #000000; color: #ffffff; }
+    </style>
+    <!-- Firefox-specific fix for sidebar -->
+    <script>
+        // Detect Firefox
+        const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        
+        if (isFirefox) {
+            // Add Firefox-specific class
+            document.documentElement.classList.add('firefox');
+            
+            // Apply the correct sidebar state immediately
+            const savedState = localStorage.getItem('sidebarState');
+            if (savedState === 'collapsed') {
+                document.documentElement.classList.add('sidebar-collapsed');
+            } else {
+                document.documentElement.classList.add('sidebar-expanded');
+            }
         }
-
-       .image-container {
-      text-align: center; 
-    }
-
-    .image-container img {
-      max-width: 100%; 
-      height: auto;
-      margin-bottom: 5%;
-    }
-
-  </style>
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="container">
+        <!-- Sidebar for navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>My Stories</h2>
+                <button id="sidebar-toggle" class="toggle-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-search">
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search stories...">
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul id="story-list">
+                    <!-- Story links will be loaded dynamically -->
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <!-- Removed theme toggle, footer is now empty or can be used for something else -->
+            </div>
+        </aside>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-<div id="content-atheism" class="content-page"></div>
-<div id="content-anime" class="content-page"></div>
-<div id="content-quotes" class="content-page"></div>
-<div id="content-OTT" class="content-page"></div>
-<div id="content-AI" class="content-page"></div>
-<div id="content-content" class="content-page"></div>
-<div id="content-index" class="content-page"></div>
-
-      <div id="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <a href="javascript:void(0)" onclick="loadPage('atheism.html')">「☘」From Islam to Atheism</a>
-<a href="javascript:void(0)" onclick="loadPage('anime.html')">「☘」The Anime Journey</a>
-<a href="javascript:void(0)" onclick="loadPage('quotes.html')">「☘」Some Important Quotes</a>
-<a href="javascript:void(0)" onclick="loadPage('OTT.html')">「☘」OTT: Critique (HateSpeech)</a>
-<a href="javascript:void(0)" onclick="loadPage('AI.html')">「☘」AI And Unemployment</a>
-<a href="javascript:void(0)" onclick="loadPage('content.html')">「☘」Encoders/Rippers/Whatever</a>
-<a href="javascript:void(0)" onclick="loadPage('index.html')">「☘」Home</a>
-
-      </div>
-      <script>
-
-     var homepageContent = `
-    <p> Mirror, mirror, on the wall </p><br>
-    <p> Who's the sweetest of them all </p><br>
-    <p> Peel away the shiny skin </p><br>
-    <p> See the rotting flesh within </p><br>
-     <div class="image-container">
-        <img src="/images/SHA_20240531_171848538_8.4.400.jpg">
-        </div>
-`;
-        function loadPage(pageUrl) {
-    if (pageUrl === 'content.html') {
-        // Special case for content.html - load in an iframe
-        $("#content").html('<iframe src="content.html" style="width: 100%; height: 100vh; border: none;"></iframe>');
-        
-        // Update URL for history
-        var pageName = pageUrl.split(".")[0];
-        var newUrl = "/" + pageName;
-        history.pushState({}, null, newUrl);
-        
-        closeNav();
-    } else if (pageUrl === 'index.html') {
-        // Original handling for index.html
-        $("#content").html(homepageContent);
-        closeNav();
-        history.pushState({ content: homepageContent }, null, "/");
-    } else {
-        // Original handling for other pages
-        $.ajax({
-            url: pageUrl,
-            type: "GET",
-            dataType: "html",
-            success: function (data) {
-                $("#content").html(data);
-                var pageName = pageUrl.split(".")[0];
-                var newUrl = "/" + pageName;
-                history.pushState({ content: data }, null, newUrl);
-                closeNav();
-            },
-            error: function (xhr, status, error) {
-                console.error("Error loading page: " + status, error);
-            }
-        });
-    }
-}
-
-
-
-function getContentContainerId(pageUrl) {
-
-    var pageName = pageUrl.split(".")[0];
-    return "content-" + pageName;
-}
-
-window.addEventListener('popstate', function (event) {
-  if (event.state && event.state.content) {
-    $("#content").html(event.state.content);
-  } else {
-    $("#content").html(homepageContent);
-  }
-});
-
-
-      </script>
-
-  <div id="main">
-    <button class="openbtn" onclick="toggleNav()">☰ </button>
-  </div>
-
-  <script>
-    function openNav() {
-          event.stopPropagation();
-    var width = window.innerWidth;
-    var sidebarWidth = (width >= 600) ? "20%" : "72%";
-    document.getElementById("sidebar").style.width = sidebarWidth;
-
-}
-
-function closeNav() {
-    setTimeout(function () {
-        document.getElementById("sidebar").style.width = "0";
-    }, 50);
-}
-
-function toggleNav() {
-    var sidebar = document.getElementById("sidebar");
-    var width = window.innerWidth;
-    var sidebarWidth = (width >= 600) ? "20%" : "72%";
-
-    if (sidebar.style.width === sidebarWidth) {
-        closeNav();
-    } else {
-        openNav();
-  }
-}
-
-document.addEventListener('click', function (event) {
-    var sidebar = document.getElementById('sidebar');
-    if (event.target !== sidebar && !sidebar.contains(event.target)) {
-        closeNav();
-    }
-});
-
-  </script>
-    <div id="content">
-    <p> Mirror, mirror, on the wall </p><br>
-    <p> Who's the sweetest of them all </p><br>
-    <p> Peel away the shiny skin </p><br>
-    <p> See the rotting flesh within </p><br>
-        <div class="image-container">
-        <img src="/images/SHA_20240531_171848538_8.4.400.jpg">
-        </div>
+        <!-- Main content area -->
+        <main class="content" id="main-content">
+            <div class="content-header">
+                <button id="mobile-menu-toggle" class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="story-title">Welcome to My Stories</h1>
+                <div class="controls">
+                    <button id="font-size-decrease" title="Decrease font size">A-</button>
+                    <button id="font-size-reset" title="Reset font size">A</button>
+                    <button id="font-size-increase" title="Increase font size">A+</button>
+                </div>
+            </div>
+            
+            <div class="content-container" id="story-content">
+                <!-- Story content will be loaded here -->
+            </div>
+            
+            <div class="content-footer">
+                <div class="navigation-buttons">
+                    <button id="prev-story" class="nav-button" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button id="next-story" class="nav-button" disabled>
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
     </div>
-      </body>
+
+    <script src="script.js"></script>
+</body>
 </html>
-  

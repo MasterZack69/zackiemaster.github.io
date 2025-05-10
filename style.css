@@ -481,7 +481,7 @@ html.firefox.transitions-enabled .sidebar {
         justify-content: space-between;
     }
 
-    .content {
+    html {
         font-size: 14px;
 }
 

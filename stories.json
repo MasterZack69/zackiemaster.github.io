@@ -11,14 +11,14 @@
       "path": "stories/anime.html"
     },
     {
-      "id": "OTT",
-      "title": "OTT: Critique (HateSpeech)",
-      "path": "stories/OTT.html"
-    },
-    {
       "id": "atheism",
       "title": "From Islam to Atheism",
       "path": "stories/atheism.html"
+    },
+    {
+      "id": "OTT",
+      "title": "OTT: Critique (HateSpeech)",
+      "path": "stories/OTT.html"
     },
     {
       "id": "AI",

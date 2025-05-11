@@ -71,8 +71,16 @@ button:disabled {
     min-height: 100vh;
 }
 
+/* For the parent container */
+.container-of-story-title {
+    justify-content: flex-start;
+}
+
 #story-title {
-    text-align: left !important;
+    align-self: flex-start;
+    text-align: left;
+    margin-right: auto;
+
 }
 
 /* ========== SIDEBAR ========== */

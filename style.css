@@ -90,7 +90,8 @@ button:disabled {
 
 /* Collapsed sidebar */
 .sidebar.collapsed {
-    width: var(--sidebar-collapsed-width);
+    width: var(--sidebar-collapsed-width); /* Set to the collapsed width */
+    overflow: hidden; /* Prevent content from overflowing */
 }
 
 /* Header of the sidebar with title and toggle button */
@@ -213,8 +214,16 @@ button:disabled {
 
 .sidebar.collapsed .sidebar-nav ul li a {
     justify-content: center;
-    width: var(--sidebar-collapsed-width); /* Constrain width to visible area */
+    width: var(--sidebar-collapsed-width);
+    pointer-events: none; /* Disable interaction */
+    visibility: hidden; /* Hide the links visually */
 }
+
+.sidebar:not(.collapsed) .sidebar-nav ul li a {
+    pointer-events: auto; /* Enable interaction */
+    visibility: visible; /* Make links visible */
+}
+
 
 /* ========== MAIN CONTENT ========== */
 .content {

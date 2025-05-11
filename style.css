@@ -465,6 +465,10 @@ html.firefox.transitions-enabled .sidebar {
     .content-footer {
         padding: 1rem;
     }
+
+    #storyTitle {
+        font-size: 18px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -480,6 +484,10 @@ html.firefox.transitions-enabled .sidebar {
     .navigation-buttons {
         width: 100%;
         justify-content: space-between;
+    }
+
+    #storyTitle {
+        font-size: 13px;
     }
 }
 

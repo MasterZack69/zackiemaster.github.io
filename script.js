@@ -55,11 +55,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         `;
     }
     // Re-enable transitions after page has loaded (Firefox-specific)
-if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-    setTimeout(() => {
-        document.documentElement.classList.add('transitions-enabled');
-    }, 300); // Longer delay to ensure everything is rendered
-}
+// if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+//     setTimeout(() => {
+//         document.documentElement.classList.add('transitions-enabled');
+//     }, 300); // Longer delay to ensure everything is rendered
+// }
 
 });
 

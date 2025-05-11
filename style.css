@@ -44,7 +44,8 @@ a {
 }
 
 p {
-    font-family: Josefin Sans;
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
 }
 
 ul {

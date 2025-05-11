@@ -471,7 +471,7 @@ html.firefox.transitions-enabled .sidebar {
      }
 
     #story-list {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 }
 
@@ -491,11 +491,11 @@ html.firefox.transitions-enabled .sidebar {
     }
 
       #story-title {
-        font-size: 0.9rem;
+        font-size: 0.2rem;
       }
 
       #story-list {
-        font-size: 0.6rem;
+        font-size: 0.8rem;
       }
     
 }

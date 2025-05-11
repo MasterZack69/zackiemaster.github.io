@@ -21,6 +21,7 @@
 
 /* Base font size increase for entire site */
 html {
+    font-size: 18px;
     color-scheme: dark;
     background-color: #000000;
 }
@@ -108,10 +109,6 @@ html.firefox.transitions-enabled .sidebar {
 /* Collapsed sidebar */
 .sidebar.collapsed {
     width: var(--sidebar-collapsed-width);
-}
-/* Fix for blue indicator line when sidebar is collapsed */
-.sidebar.collapsed .sidebar-nav ul li.active a {
-    border-left-color: transparent;
 }
 
 /* Header of the sidebar with title and toggle button */
@@ -468,10 +465,6 @@ html.firefox.transitions-enabled .sidebar {
     .content-footer {
         padding: 1rem;
     }
-
-    html {
-        font-size: 22px;
-}
 }
 
 @media (max-width: 576px) {
@@ -488,10 +481,6 @@ html.firefox.transitions-enabled .sidebar {
         width: 100%;
         justify-content: space-between;
     }
-
-    html {
-        font-size: 14px;
-}
 }
 
 /* ========== ANIMATIONS ========== */

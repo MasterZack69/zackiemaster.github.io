@@ -207,10 +207,6 @@ button:disabled {
     pointer-events: none;
 }
 
-.sidebar.collapsed .sidebar-nav {
-    width: var(--sidebar-collapsed-width);
-    overflow: hidden; /* Prevent content from flowing outside */
-}
 
 .sidebar.collapsed .sidebar-nav ul li a {
     justify-content: center;

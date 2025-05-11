@@ -468,6 +468,7 @@ html.firefox.transitions-enabled .sidebar {
     html {
         font-size: 22px;
 }
+}
 
 @media (max-width: 576px) {
     .content-header h1 {
@@ -486,6 +487,7 @@ html.firefox.transitions-enabled .sidebar {
 
     html {
         font-size: 14px;
+}
 }
 
 /* ========== ANIMATIONS ========== */

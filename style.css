@@ -39,6 +39,12 @@ body {
     background-color: var(--bg-secondary);
 }
 
+#story-title {
+    font-size: 2rem; /* or whatever size you want */
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -466,9 +472,9 @@ html.firefox.transitions-enabled .sidebar {
         padding: 1rem;
     }
 
-    #storyTitle {
-        font-size: 18px;
-    }
+     #story-title {
+        font-size: 1.5rem;
+     }
 }
 
 @media (max-width: 576px) {
@@ -486,9 +492,10 @@ html.firefox.transitions-enabled .sidebar {
         justify-content: space-between;
     }
 
-    #storyTitle {
-        font-size: 3px;
-    }
+      #story-title {
+        font-size: 1.2rem; 
+      }
+    
 }
 
 /* ========== ANIMATIONS ========== */

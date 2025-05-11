@@ -39,12 +39,6 @@ body {
     background-color: var(--bg-secondary);
 }
 
-#story-title {
-    font-size: 2rem; /* or whatever size you want */
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
 a {
     text-decoration: none;
     color: inherit;

@@ -65,7 +65,9 @@ button:disabled {
     opacity: 0.5;
 }
 
-/* Firefox-specific sidebar fixes */
+#story-title {
+    text-align: left;
+}
 
 
 /* ========== LAYOUT ========== */

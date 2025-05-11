@@ -1,0 +1,34 @@
+{
+  "stories": [
+    {
+      "id": "home",
+      "title": "Welcome",
+      "path": "stories/home.html"
+    },
+    {
+      "id": "anime",
+      "title": "The Anime Journey",
+      "path": "stories/anime.html"
+    },
+    {
+      "id": "OTT",
+      "title": "OTT: Critique (HateSpeech)",
+      "path": "stories/OTT.html"
+    },
+    {
+      "id": "atheism",
+      "title": "From Islam to Atheism",
+      "path": "stories/atheism.html"
+    },
+    {
+      "id": "AI",
+      "title": "AI and Unemployment",
+      "path": "stories/AI.html"
+    },
+    {
+      "id": "quotes",
+      "title": "Some Important Quotes",
+      "path": "stories/quotes.html"
+    }
+  ]
+}

@@ -136,6 +136,12 @@ button:disabled {
     color: var(--text-primary);
 }
 
+.separator {
+    margin: 0 10px;
+    color: var(--text-secondary);
+}
+
+
 /* Search area */
 .sidebar-search {
     padding: 1rem;

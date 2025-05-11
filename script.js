@@ -316,19 +316,16 @@ function toggleSidebar() {
         isSidebarCollapsed = !isSidebarCollapsed;
         sidebar.classList.toggle('collapsed', isSidebarCollapsed);
         localStorage.setItem('sidebarState', isSidebarCollapsed ? 'collapsed' : 'expanded');
-        
-        // Update HTML classes for Firefox
-        if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-            if (isSidebarCollapsed) {
-                document.documentElement.classList.add('sidebar-collapsed');
-                document.documentElement.classList.remove('sidebar-expanded');
-            } else {
-                document.documentElement.classList.add('sidebar-expanded');
-                document.documentElement.classList.remove('sidebar-collapsed');
-            }
+
+        // Dynamically adjust the sidebar's width
+        if (isSidebarCollapsed) {
+            sidebar.style.width = 'var(--sidebar-collapsed-width)';
+        } else {
+            sidebar.style.width = 'var(--sidebar-width)';
         }
     }
 }
+
 
 
 /**

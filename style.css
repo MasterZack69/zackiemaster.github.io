@@ -473,14 +473,17 @@ button:disabled {
     }
 
       #story-title {
-        font-size: 0.85rem;
+        font-size: 0.95rem;
         white-space: nowrap;       /* Prevents text from wrapping to a new line */
-    overflow: hidden;          /* Hides any overflow text */
-    max-width: 100%;           /* Ensures it doesn't exceed its container */
+        overflow: hidden;          
+        max-width: 100%;           /* Ensures it doesn't exceed its container */
       }
 
       #story-list {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 100%;
       }
     
 }

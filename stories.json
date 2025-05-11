@@ -29,6 +29,11 @@
       "id": "quotes",
       "title": "Some Important Quotes",
       "path": "stories/quotes.html"
+    },
+    {
+      "id": "credit",
+      "title": "Credit where Credit is due",
+      "path": "stories/credit.html"
     }
   ]
 }

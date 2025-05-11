@@ -71,6 +71,11 @@ button:disabled {
     min-height: 100vh;
 }
 
+#story-title {
+    align-self: flex-start;
+    text-align: left !important;
+}
+
 /* ========== SIDEBAR ========== */
 .sidebar {
     width: var(--sidebar-width);

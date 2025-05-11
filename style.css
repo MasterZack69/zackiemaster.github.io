@@ -112,13 +112,8 @@ html.firefox.transitions-enabled .sidebar {
 /* Fix for blue indicator line when sidebar is collapsed */
 .sidebar.collapsed .sidebar-nav ul li.active a {
     border-left-color: transparent;
-    border-right: 3px solid var(--accent);
 }
 
-.sidebar:not(.collapsed) .sidebar-nav ul li.active a {
-    border-right-color: transparent;
-
-}
 /* Header of the sidebar with title and toggle button */
 .sidebar-header {
     height: var(--header-height);

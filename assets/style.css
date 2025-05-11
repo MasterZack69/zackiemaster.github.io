@@ -476,10 +476,16 @@ button:disabled {
 
      #story-title {
         font-size: 1.5rem;
+        white-space: nowrap;     
+        overflow: hidden;          
+        max-width: 100%;
      }
 
     #story-list {
         font-size: 1.4rem;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 100%;
     }
 }
 
@@ -500,9 +506,9 @@ button:disabled {
 
       #story-title {
         font-size: 1.1rem;
-        white-space: nowrap;       /* Prevents text from wrapping to a new line */
+        white-space: nowrap;     
         overflow: hidden;          
-        max-width: 100%;           /* Ensures it doesn't exceed its container */
+        max-width: 100%;           
       }
 
       #story-list {

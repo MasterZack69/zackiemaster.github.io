@@ -72,7 +72,6 @@ button:disabled {
 }
 
 #story-title {
-    align-self: flex-start;
     text-align: left !important;
 }
 

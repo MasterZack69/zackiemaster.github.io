@@ -469,6 +469,10 @@ html.firefox.transitions-enabled .sidebar {
      #story-title {
         font-size: 1.5rem;
      }
+
+    #story-list {
+        font-size: 1.8rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -488,6 +492,10 @@ html.firefox.transitions-enabled .sidebar {
 
       #story-title {
         font-size: 0.9rem;
+      }
+
+      #story-list {
+        font-size: 1.2rem;
       }
     
 }

@@ -54,6 +54,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
         `;
     }
+    // Re-enable transitions after page has loaded (Firefox-specific)
+// if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+//     setTimeout(() => {
+//         document.documentElement.classList.add('transitions-enabled');
+//     }, 300); // Longer delay to ensure everything is rendered
+// }
+
 });
 
 // ================= CORE FUNCTIONS =================
@@ -157,11 +164,36 @@ async function loadStory(storyId) {
     currentStory = storyId;
     
     // Find the story object
-    const story = stories.find(s => s.id === storyId) || stories.find(s => s.id === 'home');
+    const story = stories.find(s => s.id === storyId);
     
     if (!story) {
-        showError('Story not found');
-        return;
+        try {
+            const content = await fetchStoryContent('stories/404.html');
+            storyTitle.textContent = 'Page Not Found';
+            document.title = '404 - Page Not Found | My Stories';
+            
+            storyContent.innerHTML = '';
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'fade-in';
+            contentDiv.innerHTML = content;
+            storyContent.appendChild(contentDiv);
+            
+            // Reset scroll position
+            window.scrollTo(0, 0);
+            
+            // Update sidebar to show no active item
+            updateSidebarActive('');
+            
+            // Disable navigation buttons
+            prevStoryBtn.disabled = true;
+            nextStoryBtn.disabled = true;
+            
+            return;
+        } catch (error) {
+            console.error('Failed to load 404 page:', error);
+            showError('Story not found');
+            return;
+        }
     }
     
     // Update active state in sidebar

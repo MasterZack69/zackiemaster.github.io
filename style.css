@@ -203,10 +203,13 @@ button:disabled {
 
 .sidebar.collapsed .sidebar-nav ul li a span {
     display: none;
+    pointer-events: none;
 }
 
 .sidebar.collapsed .sidebar-nav ul li a {
     justify-content: center;
+    width: var(--sidebar-collapsed-width); /* Constrain width to visible area */
+    padding: 0.75rem 0; 
 }
 
 /* ========== MAIN CONTENT ========== */

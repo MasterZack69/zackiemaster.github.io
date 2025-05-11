@@ -12,20 +12,6 @@
     <style>
         html, body { background-color: #000000; color: #ffffff; }
     </style>
-    <script>
-        // Detect Firefox
-        const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        
-        if (isFirefox) {
-            document.documentElement.classList.add('firefox');
-            const savedState = localStorage.getItem('sidebarState');
-            if (savedState === 'collapsed') {
-                document.documentElement.classList.add('sidebar-collapsed');
-            } else {
-                document.documentElement.classList.add('sidebar-expanded');
-            }
-        }
-    </script>
     
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />

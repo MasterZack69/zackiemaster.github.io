@@ -65,23 +65,6 @@ button:disabled {
 }
 
 /* Firefox-specific sidebar fixes */
-html.firefox.sidebar-expanded .sidebar {
-    width: var(--sidebar-width) !important;
-}
-
-html.firefox.sidebar-collapsed .sidebar {
-    width: var(--sidebar-collapsed-width) !important;
-}
-
-/* Prevent transitions during page load in Firefox */
-html.firefox .sidebar {
-    transition: none !important;
-}
-
-/* Re-enable transitions after the page has fully loaded */
-html.firefox.transitions-enabled .sidebar {
-    transition: transform var(--transition-speed), width var(--transition-speed) !important;
-}
 
 
 /* ========== LAYOUT ========== */

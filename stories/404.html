@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+
+    <title>404 - Page Not Found</title>
+    <style>
+        .error-404 {
+            text-align: center;
+            padding: 2rem;
+            font-family: "Work Sans", sans-serif;
+        }
+        
+        .error-404 h1 {
+            font-size: 8rem;
+            margin: 0;
+            background: linear-gradient(45deg, #4cc9f0, #7209b7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .error-404 h2 {
+            font-size: 2rem;
+            margin: 1rem 0;
+            color: #ffffff;
+        }
+        
+        .error-404 p {
+            font-size: 1.2rem;
+            color: #adb5bd;
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+        
+        .error-404 .ghost {
+            font-size: 5rem;
+            margin: 2rem 0;
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        .home-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #4cc9f0, #7209b7);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: transform 0.2s;
+        }
+        
+        .home-button:hover {
+            transform: scale(1.05);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .fun-facts {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+        }
+        
+        .fun-facts h3 {
+            color: #4cc9f0;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="content" class="error-404">
+        <h1>404</h1>
+        <h2>Oops! Story Not Found</h2>
+        <p>The story you're looking for isn't here. Maybe it moved, or maybe it never existed at all.</p>
+        <div class="fun-facts">
+            <h3>While you're here, did you know?</h3>
+            <p>The term "404" comes from room 404 at CERN, where the World Wide Web was developed. Whenever the server room couldn't be found, they'd say it was "404 - room not found"!</p>
+        </div>
+        <a href="/" class="home-button">Take Me Home</a>
+    </div>
+</body>
+</html>

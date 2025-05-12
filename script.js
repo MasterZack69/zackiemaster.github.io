@@ -376,7 +376,7 @@ function searchStories() {
  * Adjust font size
  */
 function adjustFontSize(amount) {
-    fontSizeLevel = Math.max(-2, Math.min(4, fontSizeLevel + amount));
+    fontSizeLevel = Math.max(-3, Math.min(3, fontSizeLevel + amount));
     applyFontSize();
     localStorage.setItem('fontSize', fontSizeLevel.toString());
 }
@@ -394,16 +394,16 @@ function resetFontSize() {
  * Apply current font size level to content
  */
 function applyFontSize() {
-    let size = 1.2; // Increased base size
+    let size = 1.1; // Increased base size
     
     switch (fontSizeLevel) {
-        case -2: size = 1.0; break;
-        case -1: size = 1.1; break;
-        case 0: size = 1.2; break;
-        case 1: size = 1.3; break;
-        case 2: size = 1.4; break;
-        case 3: size = 1.5; break;
-        case 4: size = 1.6; break;
+        case -3: size = 0.8; break;
+        case -2: size = 0.9; break;
+        case -1: size = 1.0; break;
+        case 0: size = 1.1; break;
+        case 1: size = 1.2; break;
+        case 2: size = 1.3; break;
+        case 3: size = 1.4; break;
     }
     
     storyContent.style.fontSize = `${size}rem`;

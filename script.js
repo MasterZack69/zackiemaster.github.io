@@ -394,16 +394,16 @@ function resetFontSize() {
  * Apply current font size level to content
  */
 function applyFontSize() {
-    let size = 1.1; // Increased base size
+    let size = 1.0; // Increased base size
     
     switch (fontSizeLevel) {
-        case -3: size = 0.8; break;
-        case -2: size = 0.9; break;
-        case -1: size = 1.0; break;
-        case 0: size = 1.1; break;
-        case 1: size = 1.2; break;
-        case 2: size = 1.3; break;
-        case 3: size = 1.4; break;
+        case -3: size = 0.7; break;
+        case -2: size = 0.85; break;
+        case -1: size = 0.9; break;
+        case 0: size = 1.0; break;
+        case 1: size = 1.1; break;
+        case 2: size = 1.15; break;
+        case 3: size = 1.3; break;
     }
     
     storyContent.style.fontSize = `${size}rem`;

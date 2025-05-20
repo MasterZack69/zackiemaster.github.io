@@ -163,7 +163,7 @@ async function loadStory(storyId) {
         try {
             const content = await fetchStoryContent('stories/404.html');
             storyTitle.textContent = 'Page Not Found';
-            document.title = '404 - Page Not Found | My Stories';
+            document.title = "404 - Page Not Found | MasterZack's Jeevankatha";
             
             storyContent.innerHTML = '';
             const contentDiv = document.createElement('div');
@@ -197,7 +197,7 @@ async function loadStory(storyId) {
     
     // Update page title
     storyTitle.textContent = story.title;
-    document.title = `${story.title} | My Stories`;
+    document.title = `${story.title} | MasterZack's JeevanKatha`;
     
     try {
         // Show loading state

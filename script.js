@@ -1,8 +1,3 @@
-/**
- * Story Website - Script for loading story content dynamically
- * AMOLED Black theme permanently enabled
- */
-
 // ================= DOM ELEMENTS =================
 const sidebar = document.getElementById('sidebar');
 const mainContent = document.getElementById('main-content');
@@ -27,19 +22,14 @@ let isSidebarCollapsed = false; // Track sidebar state
 // ================= INITIALIZATION =================
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        // Load stories configuration
         await loadStories();
 
-        // Set up event listeners
         setupEventListeners();
 
-        // Initialize UI based on URL
         handleURLChange();
 
-        // Load font size preference
         loadFontSizePreference();
 
-        // Load sidebar state
         loadSidebarState();
 
     } catch (error) {
@@ -57,10 +47,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // ================= CORE FUNCTIONS =================
-
-/**
- * Load stories configuration from stories.json
- */
 async function loadStories() {
     try {
         const response = await fetch('stories.json');
@@ -69,7 +55,6 @@ async function loadStories() {
         const data = await response.json();
         stories = data.stories;
         
-        // Populate sidebar with stories
         populateSidebar();
         
     } catch (error) {
@@ -96,32 +81,23 @@ function populateSidebar() {
     });
 }
 
-/**
- * Set up all event listeners
- */
 function setupEventListeners() {
-    // Sidebar toggle
     sidebarToggle.addEventListener('click', toggleSidebar);
     
-    // Mobile menu toggle
     if (mobileMenuToggle) {
         mobileMenuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('mobile-active');
         });
     }
     
-    // URL/hash change
     window.addEventListener('hashchange', handleURLChange);
     
-    // Font size controls
     fontSizeDecrease.addEventListener('click', () => adjustFontSize(-1));
     fontSizeReset.addEventListener('click', resetFontSize);
     fontSizeIncrease.addEventListener('click', () => adjustFontSize(1));
     
-    // Search input
     searchInput.addEventListener('input', searchStories);
     
-    // Navigation buttons
     prevStoryBtn.addEventListener('click', navigateToPrevStory);
     nextStoryBtn.addEventListener('click', navigateToNextStory);
     
@@ -135,9 +111,6 @@ function setupEventListeners() {
     });
 }
 
-/**
- * Handle URL changes to load the appropriate story
- */
 function handleURLChange() {
     // Get the story ID from the URL hash
     const hash = window.location.hash.replace('#/', '');
@@ -145,18 +118,12 @@ function handleURLChange() {
     // If no hash or invalid, default to home
     const storyId = hash || 'home';
     
-    // Load the story
     loadStory(storyId);
 }
 
-/**
- * Load a story by ID
- */
 async function loadStory(storyId) {
-    // Update current story
     currentStory = storyId;
     
-    // Find the story object
     const story = stories.find(s => s.id === storyId);
     
     if (!story) {
@@ -189,10 +156,7 @@ async function loadStory(storyId) {
         }
     }
     
-    // Update active state in sidebar
     updateSidebarActive(storyId);
-    
-    // Update navigation buttons
     updateNavButtons(storyId);
     
     // Update page title
@@ -200,20 +164,16 @@ async function loadStory(storyId) {
     document.title = `${story.title} | MasterZack's JeevanKatha`;
     
     try {
-        // Show loading state
         storyContent.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading story...</div>';
         
-        // Fetch the story content
         const content = await fetchStoryContent(story.path || `stories/${storyId}.html`);
         
-        // Update the content with fade effect
         storyContent.innerHTML = '';
         const contentDiv = document.createElement('div');
         contentDiv.className = 'fade-in';
         contentDiv.innerHTML = content;
         storyContent.appendChild(contentDiv);
         
-        // Reset scroll position
         window.scrollTo(0, 0);
         
     } catch (error) {
@@ -240,13 +200,10 @@ async function fetchStoryContent(path) {
  * Extract only the content part from HTML file
  */
 function extractStoryContent(html) {
-    // This function extracts the actual content from your HTML files
-    // You may need to adjust the selector based on how your HTML files are structured
     
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
     
-    // Try to find content with a specific ID or class
     const content = doc.querySelector('#content') || 
                    doc.querySelector('.story-content') || 
                    doc.querySelector('main') ||
@@ -265,9 +222,6 @@ function updateSidebarActive(storyId) {
     });
 }
 
-/**
- * Update navigation buttons based on current story
- */
 function updateNavButtons(storyId) {
     const currentIndex = stories.findIndex(s => s.id === storyId);
     
@@ -288,27 +242,18 @@ function updateNavButtons(storyId) {
     }
 }
 
-/**
- * Navigate to previous story
- */
 function navigateToPrevStory() {
     if (!prevStoryBtn.disabled && prevStoryBtn.dataset.target) {
         window.location.hash = `#/${prevStoryBtn.dataset.target}`;
     }
 }
 
-/**
- * Navigate to next story
- */
 function navigateToNextStory() {
     if (!nextStoryBtn.disabled && nextStoryBtn.dataset.target) {
         window.location.hash = `#/${nextStoryBtn.dataset.target}`;
     }
 }
 
-/**
- * Show error message in content area
- */
 function showError(message) {
     storyContent.innerHTML = `
         <div class="error-message">
@@ -322,9 +267,7 @@ function showError(message) {
 
 // ================= UI FUNCTIONS =================
 
-/**
- * Toggle sidebar between expanded and collapsed states
- */
+
 function toggleSidebar() {
     if (window.innerWidth <= 992) {
         // On mobile, toggle the mobile-active class
@@ -355,9 +298,6 @@ function loadSidebarState() {
     sidebar.classList.toggle('collapsed', isSidebarCollapsed);
 }
 
-/**
- * Search through stories in the sidebar
- */
 function searchStories() {
     const searchTerm = searchInput.value.toLowerCase();
     const items = storyList.querySelectorAll('li');
@@ -372,38 +312,33 @@ function searchStories() {
     });
 }
 
-/**
- * Adjust font size
- */
 function adjustFontSize(amount) {
-    fontSizeLevel = Math.max(-3, Math.min(3, fontSizeLevel + amount));
+    fontSizeLevel = Math.max(-5, Math.min(5, fontSizeLevel + amount));
     applyFontSize();
     localStorage.setItem('fontSize', fontSizeLevel.toString());
 }
 
-/**
- * Reset font size to default
- */
 function resetFontSize() {
     fontSizeLevel = 0;
     applyFontSize();
     localStorage.setItem('fontSize', '0');
 }
 
-/**
- * Apply current font size level to content
- */
 function applyFontSize() {
-    let size = 1.05; // Increased base size
+    let size = 1.05; // Increase or decrease base size
     
     switch (fontSizeLevel) {
-        case -3: size = 0.8; break;
-        case -2: size = 0.9; break;
-        case -1: size = 0.95; break;
+        case -5: size = 0.80; break;
+        case -4: size = 0.85; break;
+        case -3: size = 0.90; break;
+        case -2: size = 0.95; break;
+        case -1: size = 1.00; break;
         case 0: size = 1.05; break;
-        case 1: size = 1.15; break;
-        case 2: size = 1.2; break;
-        case 3: size = 1.3; break;
+        case 1: size = 1.10; break;
+        case 2: size = 1.15; break;
+        case 3: size = 1.20; break;
+        case 4: size = 1.25; break;
+        case 5: size = 1.30; break;
     }
     
     storyContent.style.fontSize = `${size}rem`;

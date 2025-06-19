@@ -234,6 +234,9 @@ button:disabled {
     visibility: visible; /* Make links visible */
 }
 
+#story-list li.hidden {
+    display: none !important;
+}
 
 /* ========== MAIN CONTENT ========== */
 .content {

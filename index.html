@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="MasterZack's JeevanKatha">
+    <meta property="og:description" content="Mirror, mirror, on the wall &#x0A;Who's the sweetest of them all &#x0A;Peel away the shiny skin &#x0A;See the rotting flesh within">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+    <link rel="stylesheet" href="assets/style.css">
+    <link <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <title>MasterZack's Jeevankatha</title>
+
+    <style>
+        html,
+        body {
+            background-color: #000000;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>My Stories</h2>
+                <button id="sidebar-toggle" class="toggle-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-search">
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search stories...">
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul id="story-list">
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+            </div>
+        </aside>
+
+        <!-- Main content area -->
+        <main class="content" id="main-content">
+            <div class="content-header">
+                <button id="mobile-menu-toggle" class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <span class="separator">|</span>
+                <h1 id="story-title">Welcome</h1>
+                <div class="controls">
+                    <button id="font-size-decrease" title="Decrease font size">A-</button>
+                    <button id="font-size-reset" title="Reset font size">A</button>
+                    <button id="font-size-increase" title="Increase font size">A+</button>
+                </div>
+            </div>
+
+            <div class="content-container" id="story-content">
+                <!-- Story content will be loaded here -->
+            </div>
+
+            <div class="content-footer">
+                <div class="navigation-buttons">
+                    <button id="prev-story" class="nav-button" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button id="next-story" class="nav-button" disabled>
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

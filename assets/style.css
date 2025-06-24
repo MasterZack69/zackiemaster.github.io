@@ -210,7 +210,6 @@ button:disabled {
     display: none; /* Hide since there's no content */
 }
 
-/* Collapsed sidebar styles */
 .sidebar.collapsed .sidebar-header h2,
 .sidebar.collapsed .sidebar-search {
     display: none;
@@ -225,13 +224,13 @@ button:disabled {
 .sidebar.collapsed .sidebar-nav ul li a {
     justify-content: center;
     width: var(--sidebar-collapsed-width);
-    pointer-events: none; /* Disable interaction */
-    visibility: hidden; /* Hide the links visually */
+    pointer-events: none;
+    visibility: hidden;
 }
 
 .sidebar:not(.collapsed) .sidebar-nav ul li a {
-    pointer-events: auto; /* Enable interaction */
-    visibility: visible; /* Make links visible */
+    pointer-events: auto; 
+    visibility: visible;
 }
 
 #story-list li.hidden {
@@ -309,17 +308,43 @@ button:disabled {
     max-width: var(--content-max-width);
     margin: 0 auto;
     width: 100%;
-    font-size: 1.1rem; /* Larger text in the content area */
+    font-size: 1.1rem;
 }
 
-/* Footer area - with navigation buttons only */
+/* ========== SOCIAL LINKS ========== */
+.social-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+
+.social-links a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+}
+
+
+.social-links a:hover {
+    background-color: var(--accent);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
 .content-footer {
     background-color: var(--bg-primary);
     border-top: 1px solid var(--border);
     padding: 1rem 2rem;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 /* Navigation buttons */
@@ -344,7 +369,6 @@ button:disabled {
 }
 
 /* ========== STORY CONTENT STYLES ========== */
-/* These styles will apply to your loaded story content */
 .content-container h2 {
     margin: 1.5rem 0 1rem;
     font-weight: 600;
@@ -498,29 +522,51 @@ button:disabled {
     }
     
     .content-footer {
-        flex-direction: column;
-        gap: 1rem;
+        flex-direction: row; /* Keep as row instead of column */
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 0.5rem; /* Reduce padding on mobile */
     }
     
     .navigation-buttons {
-        width: 100%;
-        justify-content: space-between;
+        width: auto;
+        gap: 0.5rem;
+    }
+    
+    .social-links {
+        gap: 0.5rem;
+        order: 2;
+    }
+    
+    .social-links a {
+        width: 32px;
+        height: 32px;
+    }
+    
+    #prev-story {
+        order: 1;
+    }
+    
+    #next-story {
+        order: 3;
     }
 
-      #story-title {
+
+    #story-title {
         font-size: 1.1rem;
         white-space: nowrap;     
         overflow: hidden;          
         max-width: 100%;           
-      }
+    }
 
-      #story-list {
+
+    #story-list {
         font-size: 0.9rem;
         white-space: nowrap;
         overflow: hidden;
         max-width: 100%;
-      }
-    
+    }
 }
 
 /* ========== ANIMATIONS ========== */

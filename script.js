@@ -115,12 +115,27 @@ function populateSidebar() {
         link.href = `#/${story.id}`;
         link.innerHTML = `<span>${escapeHtml(story.title)}</span>`;
         
+        link.addEventListener('click', handleStoryClick);
+        
         li.appendChild(link);
         fragment.appendChild(li);
     });
     
     DOM.storyList.innerHTML = '';
     DOM.storyList.appendChild(fragment);
+}
+
+function handleStoryClick(e) {
+    if (window.innerWidth <= 992) {
+        // Close the mobile sidebar
+        DOM.sidebar.classList.remove('mobile-active');
+    }
+    
+    if (DOM.sidebar.classList.contains('collapsed')) {
+        DOM.sidebar.classList.remove('collapsed');
+        state.isSidebarCollapsed = false;
+        savePreference(CONFIG.storage.sidebarState, 'expanded');
+    }
 }
 
 async function loadStory(storyId) {
@@ -274,7 +289,6 @@ function setupEventListeners() {
     // Outside click handler for mobile
     document.addEventListener('click', handleOutsideClick);
     
-    // Keyboard navigation
     document.addEventListener('keydown', handleKeyboardNavigation);
 }
 
@@ -314,7 +328,6 @@ function toggleSidebar() {
         state.isSidebarCollapsed = !state.isSidebarCollapsed;
         DOM.sidebar.classList.toggle('collapsed', state.isSidebarCollapsed);
         
-        // Update CSS custom property for smooth transition
         DOM.sidebar.style.width = state.isSidebarCollapsed 
             ? 'var(--sidebar-collapsed-width)' 
             : 'var(--sidebar-width)';
@@ -343,13 +356,12 @@ function searchStories() {
     const searchTerm = DOM.searchInput.value.toLowerCase().trim();
     const items = DOM.storyList.querySelectorAll('li');
     
-    // Use requestAnimationFrame for smoother UI updates
+
     requestAnimationFrame(() => {
         items.forEach(item => {
             const title = item.querySelector('span').textContent.toLowerCase();
             const isVisible = !searchTerm || title.includes(searchTerm);
             
-            // Use classList for better performance
             if (isVisible) {
                 item.classList.remove('hidden');
             } else {
@@ -428,4 +440,81 @@ function debounce(func, delay) {
         timeoutId = setTimeout(() => func.apply(this, args), delay);
     };
 
+}
+
+// ================= SCRAMBLE TEXT ANIMATION =================
+class TextScrambler {
+    constructor(element) {
+        this.element = element;
+        this.chars = 'ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ';
+        this.update = this.update.bind(this);
+    }
+    
+    setText(newText) {
+        const oldText = this.element.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const promise = new Promise((resolve) => this.resolve = resolve);
+        this.queue = [];
+        
+        for (let i = 0; i < length; i++) {
+            const from = oldText[i] || '';
+            const to = newText[i] || '';
+            const start = Math.floor(Math.random() * 40);
+            const end = start + Math.floor(Math.random() * 40);
+            this.queue.push({ from, to, start, end });
+        }
+        
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+    }
+    
+    update() {
+        let output = '';
+        let complete = 0;
+        
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+            let { from, to, start, end, char } = this.queue[i];
+            
+            if (this.frame >= end) {
+                complete++;
+                output += to;
+            } else if (this.frame >= start) {
+                if (!char || Math.random() < 0.28) {
+                    char = this.randomChar();
+                    this.queue[i].char = char;
+                }
+                output += `<span class="scramble-char">${char}</span>`;
+            } else {
+                output += from;
+            }
+        }
+        
+        this.element.innerHTML = output;
+        
+        if (complete === this.queue.length) {
+            this.resolve();
+        } else {
+            this.frameRequest = requestAnimationFrame(this.update);
+            this.frame++;
+        }
+    }
+    
+    randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }
+}
+
+let titleScrambler = null;
+
+function updatePageTitle(title) {
+    // Initialize scrambler if not already done
+    if (!titleScrambler) {
+        titleScrambler = new TextScrambler(DOM.storyTitle);
+    }
+    
+    titleScrambler.setText(title);
+    
+    document.title = `${title} | MasterZack's JeevanKatha`;
 }

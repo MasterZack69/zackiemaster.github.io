@@ -94,15 +94,15 @@ button:disabled {
     transition: transform var(--transition-speed), width var(--transition-speed);
     display: flex;
     flex-direction: column;
+    transition: transform var(--transition-speed) ease-out;
 }
 
 /* Collapsed sidebar */
 .sidebar.collapsed {
-    width: var(--sidebar-collapsed-width); /* Set to the collapsed width */
-    overflow: hidden; /* Prevent content from overflowing */
+    width: var(--sidebar-collapsed-width);
+    overflow: hidden; 
 }
 
-/* Header of the sidebar with title and toggle button */
 .sidebar-header {
     height: var(--header-height);
     padding: 0 0 0 1rem;
@@ -203,11 +203,10 @@ button:disabled {
     color: var(--text-primary);
 }
 
-/* Sidebar footer - empty now that theme toggle is removed */
 .sidebar-footer {
     padding: 1rem;
     border-top: 1px solid var(--border);
-    display: none; /* Hide since there's no content */
+    display: none;
 }
 
 .sidebar.collapsed .sidebar-header h2,
@@ -522,11 +521,11 @@ button:disabled {
     }
     
     .content-footer {
-        flex-direction: row; /* Keep as row instead of column */
+        flex-direction: row; 
         justify-content: space-between;
         align-items: center;
         gap: 0.5rem;
-        padding: 1rem 0.5rem; /* Reduce padding on mobile */
+        padding: 1rem 0.5rem;
     }
     
     .navigation-buttons {
@@ -577,4 +576,35 @@ button:disabled {
 
 .fade-in {
     animation: fadeIn 0.5s ease-in;
+}
+
+
+/* ========== SCRAMBLE TEXT ANIMATION ========== */
+#story-title {
+    position: relative;
+    overflow: hidden;
+}
+
+.scramble-char {
+    color: var(--accent);
+    font-family: 'Courier New', monospace;
+    opacity: 0.8;
+    text-shadow: 0 0 3px var(--accent);
+    animation: glitchFlicker 0.1s infinite;
+}
+
+@keyframes glitchFlicker {
+    0%, 100% {
+        opacity: 0.8;
+        transform: translateX(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(1px);
+    }
+}
+
+/* Add a subtle glow effect during scramble */
+#story-title:has(.scramble-char) {
+    text-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
 }

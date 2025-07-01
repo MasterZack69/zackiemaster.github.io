@@ -578,33 +578,3 @@ button:disabled {
     animation: fadeIn 0.5s ease-in;
 }
 
-
-/* ========== SCRAMBLE TEXT ANIMATION ========== */
-#story-title {
-    position: relative;
-    overflow: hidden;
-}
-
-.scramble-char {
-    color: var(--accent);
-    font-family: 'Courier New', monospace;
-    opacity: 0.8;
-    text-shadow: 0 0 3px var(--accent);
-    animation: glitchFlicker 0.1s infinite;
-}
-
-@keyframes glitchFlicker {
-    0%, 100% {
-        opacity: 0.8;
-        transform: translateX(0);
-    }
-    50% {
-        opacity: 1;
-        transform: translateX(1px);
-    }
-}
-
-/* Add a subtle glow effect during scramble */
-#story-title:has(.scramble-char) {
-    text-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
-}

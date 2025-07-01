@@ -13,7 +13,6 @@
     
     /* Layout Variables */
     --sidebar-width: 280px;
-    --sidebar-collapsed-width: 70px;
     --header-height: 60px;
     --transition-speed: 0.3s;
     --content-max-width: 900px;
@@ -78,7 +77,6 @@ button:disabled {
 #story-title {
     text-align: left;
     margin-right: auto;
-
 }
 
 /* ========== SIDEBAR ========== */
@@ -91,16 +89,16 @@ button:disabled {
     top: 0;
     z-index: 100;
     box-shadow: 2px 0 10px var(--shadow);
-    transition: transform var(--transition-speed), width var(--transition-speed);
     display: flex;
     flex-direction: column;
+    transform: translateX(-100%);
     transition: transform var(--transition-speed) ease-out;
 }
 
-/* Collapsed sidebar */
-.sidebar.collapsed {
-    width: var(--sidebar-collapsed-width);
-    overflow: hidden; 
+/* Active sidebar state */
+.sidebar.active,
+.sidebar.mobile-active {
+    transform: translateX(0);
 }
 
 .sidebar-header {
@@ -139,7 +137,6 @@ button:disabled {
     margin: 0 10px;
     color: var(--text-secondary);
 }
-
 
 /* Search area */
 .sidebar-search {
@@ -209,46 +206,32 @@ button:disabled {
     display: none;
 }
 
-.sidebar.collapsed .sidebar-header h2,
-.sidebar.collapsed .sidebar-search {
-    display: none;
-}
-
-.sidebar.collapsed .sidebar-nav ul li a span {
-    display: none;
-    pointer-events: none;
-}
-
-
-.sidebar.collapsed .sidebar-nav ul li a {
-    justify-content: center;
-    width: var(--sidebar-collapsed-width);
-    pointer-events: none;
-    visibility: hidden;
-}
-
-.sidebar:not(.collapsed) .sidebar-nav ul li a {
-    pointer-events: auto; 
-    visibility: visible;
-}
-
 #story-list li.hidden {
     display: none !important;
+}
+
+/* ========== SIDEBAR OVERLAY ========== */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
 }
 
 /* ========== MAIN CONTENT ========== */
 .content {
     flex: 1;
-    margin-left: var(--sidebar-width);
+    margin-left: 0;
     transition: margin-left var(--transition-speed);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     background-color: var(--bg-secondary);
-}
-
-.sidebar.collapsed ~ .content {
-    margin-left: var(--sidebar-collapsed-width);
 }
 
 /* Content header */
@@ -259,20 +242,27 @@ button:disabled {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem 0 0;
+    padding: 0 2rem;
     position: sticky;
     top: 0;
     z-index: 50;
 }
 
+/* IMPORTANT FIX: Show mobile toggle on all screen sizes */
 .mobile-toggle {
-    display: none;
+    display: flex !important;
     width: 36px;
     height: 36px;
     border-radius: 50%;
     align-items: center;
     justify-content: center;
     background-color: var(--bg-secondary);
+    transition: all 0.2s;
+}
+
+.mobile-toggle:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
 }
 
 .content-header h1 {
@@ -317,7 +307,6 @@ button:disabled {
     align-items: center;
 }
 
-
 .social-links a {
     width: 36px;
     height: 36px;
@@ -329,7 +318,6 @@ button:disabled {
     transition: all 0.3s ease;
     color: var(--text-secondary);
 }
-
 
 .social-links a:hover {
     background-color: var(--accent);
@@ -484,10 +472,6 @@ button:disabled {
         margin-left: 0 !important;
     }
     
-    .mobile-toggle {
-        display: flex;
-    }
-    
     .content-header {
         padding: 0 1rem;
     }
@@ -500,12 +484,12 @@ button:disabled {
         padding: 1rem;
     }
 
-     #story-title {
+    #story-title {
         font-size: 1.5rem;
         white-space: nowrap;     
         overflow: hidden;          
         max-width: 100%;
-     }
+    }
 
     #story-list {
         font-size: 1.4rem;
@@ -551,14 +535,12 @@ button:disabled {
         order: 3;
     }
 
-
     #story-title {
         font-size: 1.1rem;
         white-space: nowrap;     
         overflow: hidden;          
         max-width: 100%;           
     }
-
 
     #story-list {
         font-size: 0.9rem;
@@ -577,4 +559,3 @@ button:disabled {
 .fade-in {
     animation: fadeIn 0.5s ease-in;
 }
-

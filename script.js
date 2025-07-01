@@ -18,7 +18,6 @@ const DOM = {
     }
 };
 
-
 // ================= CONFIGURATION =================
 const CONFIG = {
     fontSize: {
@@ -29,8 +28,8 @@ const CONFIG = {
         step: 0.05
     },
     storage: {
-        fontSize: 'fontSize',
-        sidebarState: 'sidebarState'
+        fontSize: 'fontSize'
+        // REMOVED: sidebarState
     },
     selectors: {
         contentAreas: ['#content', '.story-content', 'main'],
@@ -41,15 +40,12 @@ const CONFIG = {
     }
 };
 
-
-
 // ================= STATE MANAGEMENT =================
 class AppState {
     constructor() {
         this.stories = [];
         this.currentStory = 'home';
         this.fontSizeLevel = CONFIG.fontSize.default;
-        this.isSidebarCollapsed = false;
         this.searchDebounceTimer = null;
     }
 
@@ -77,6 +73,8 @@ async function initializeApp() {
         setupEventListeners();
         handleURLChange();
         loadUserPreferences();
+        // Ensure sidebar starts closed
+        DOM.sidebar.classList.remove('active', 'mobile-active');
     } catch (error) {
         console.error('Initialization error:', error);
         showError('Failed to load stories', error.message, true);
@@ -127,15 +125,9 @@ function populateSidebar() {
 }
 
 function handleStoryClick(e) {
+    // Only close sidebar on mobile devices
     if (window.innerWidth <= 992) {
-        // Close the mobile sidebar
-        DOM.sidebar.classList.remove('mobile-active');
-    }
-    
-    if (DOM.sidebar.classList.contains('collapsed')) {
-        DOM.sidebar.classList.remove('collapsed');
-        state.isSidebarCollapsed = false;
-        savePreference(CONFIG.storage.sidebarState, 'expanded');
+        closeSidebar();
     }
 }
 
@@ -265,12 +257,8 @@ async function handle404() {
 // ================= EVENT HANDLING =================
 function setupEventListeners() {
     // Sidebar toggle
-    DOM.sidebarToggle.addEventListener('click', toggleSidebar);
-    
-    // Mobile menu
-    DOM.mobileMenuToggle?.addEventListener('click', () => {
-        DOM.sidebar.classList.toggle('mobile-active');
-    });
+    DOM.sidebarToggle?.addEventListener('click', toggleSidebar);
+    DOM.mobileMenuToggle?.addEventListener('click', toggleSidebar);
     
     // URL changes
     window.addEventListener('hashchange', handleURLChange);
@@ -287,9 +275,7 @@ function setupEventListeners() {
     DOM.navigation.prev.addEventListener('click', navigateToPrevStory);
     DOM.navigation.next.addEventListener('click', navigateToNextStory);
     
-    // Outside click handler for mobile
-    document.addEventListener('click', handleOutsideClick);
-    
+    // Keyboard navigation
     document.addEventListener('keydown', handleKeyboardNavigation);
 }
 
@@ -297,15 +283,6 @@ function handleURLChange() {
     const hash = window.location.hash.replace('#/', '').trim();
     const storyId = hash || 'home';
     loadStory(storyId);
-}
-
-function handleOutsideClick(e) {
-    if (window.innerWidth <= 992 && 
-        DOM.sidebar.classList.contains('mobile-active') &&
-        !DOM.sidebar.contains(e.target) && 
-        !DOM.mobileMenuToggle?.contains(e.target)) {
-        DOM.sidebar.classList.remove('mobile-active');
-    }
 }
 
 function handleKeyboardNavigation(e) {
@@ -317,23 +294,48 @@ function handleKeyboardNavigation(e) {
             navigateToNextStory();
         }
     }
+    
+    // Escape to close sidebar
+    if (e.key === 'Escape' && (DOM.sidebar.classList.contains('active') || DOM.sidebar.classList.contains('mobile-active'))) {
+        closeSidebar();
+    }
 }
 
-// ================= SIDEBAR FUNCTIONS =================
+// ================= NEW SIDEBAR FUNCTIONS =================
 function toggleSidebar() {
+    if (DOM.sidebar.classList.contains('active') || DOM.sidebar.classList.contains('mobile-active')) {
+        closeSidebar();
+    } else {
+        openSidebar();
+    }
+}
+
+function openSidebar() {
     const isMobile = window.innerWidth <= 992;
     
     if (isMobile) {
-        DOM.sidebar.classList.toggle('mobile-active');
+        DOM.sidebar.classList.add('mobile-active');
     } else {
-        state.isSidebarCollapsed = !state.isSidebarCollapsed;
-        DOM.sidebar.classList.toggle('collapsed', state.isSidebarCollapsed);
-        
-        DOM.sidebar.style.width = state.isSidebarCollapsed 
-            ? 'var(--sidebar-collapsed-width)' 
-            : 'var(--sidebar-width)';
-        
-        savePreference(CONFIG.storage.sidebarState, state.isSidebarCollapsed ? 'collapsed' : 'expanded');
+        DOM.sidebar.classList.add('active');
+    }
+    
+    // Add overlay
+    if (!document.getElementById('sidebar-overlay')) {
+        const overlay = document.createElement('div');
+        overlay.className = 'sidebar-overlay';
+        overlay.id = 'sidebar-overlay';
+        overlay.addEventListener('click', closeSidebar);
+        document.body.appendChild(overlay);
+    }
+}
+
+function closeSidebar() {
+    DOM.sidebar.classList.remove('active', 'mobile-active');
+    
+    // Remove overlay
+    const overlay = document.getElementById('sidebar-overlay');
+    if (overlay) {
+        overlay.remove();
     }
 }
 
@@ -357,7 +359,6 @@ function searchStories() {
     const searchTerm = DOM.searchInput.value.toLowerCase().trim();
     const items = DOM.storyList.querySelectorAll('li');
     
-
     requestAnimationFrame(() => {
         items.forEach(item => {
             const title = item.querySelector('span').textContent.toLowerCase();
@@ -371,7 +372,6 @@ function searchStories() {
         });
     });
 }
-
 
 // ================= FONT SIZE MANAGEMENT =================
 function adjustFontSize(delta) {
@@ -396,6 +396,7 @@ function applyFontSize() {
 
 // ================= PREFERENCE MANAGEMENT =================
 function loadUserPreferences() {
+    // Only load font size preference
     const savedFontSize = loadPreference(CONFIG.storage.fontSize);
     if (savedFontSize !== null) {
         state.fontSizeLevel = Math.max(
@@ -404,10 +405,7 @@ function loadUserPreferences() {
         );
         applyFontSize();
     }
-    
-    const sidebarState = loadPreference(CONFIG.storage.sidebarState);
-    state.isSidebarCollapsed = sidebarState === 'collapsed';
-    DOM.sidebar.classList.toggle('collapsed', state.isSidebarCollapsed);
+    // NO SIDEBAR STATE LOADING
 }
 
 function savePreference(key, value) {

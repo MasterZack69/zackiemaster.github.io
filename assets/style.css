@@ -95,7 +95,6 @@ button:disabled {
     transition: transform var(--transition-speed) ease-out;
 }
 
-/* Active sidebar state */
 .sidebar.active,
 .sidebar.mobile-active {
     transform: translateX(0);
@@ -138,7 +137,6 @@ button:disabled {
     color: var(--text-secondary);
 }
 
-/* Search area */
 .sidebar-search {
     padding: 1rem;
     border-bottom: 1px solid var(--border);
@@ -169,7 +167,6 @@ button:disabled {
     color: var(--text-secondary);
 }
 
-/* Navigation list */
 .sidebar-nav {
     flex: 1;
     overflow-y: auto;
@@ -234,7 +231,6 @@ button:disabled {
     background-color: var(--bg-secondary);
 }
 
-/* Content header */
 .content-header {
     height: var(--header-height);
     background-color: var(--bg-primary);
@@ -248,7 +244,6 @@ button:disabled {
     z-index: 50;
 }
 
-/* IMPORTANT FIX: Show mobile toggle on all screen sizes */
 .mobile-toggle {
     display: flex !important;
     width: 36px;
@@ -334,7 +329,6 @@ button:disabled {
     justify-content: space-between;
 }
 
-/* Navigation buttons */
 .navigation-buttons {
     display: flex;
     gap: 1rem;
@@ -407,7 +401,6 @@ button:disabled {
     font-size: 0.9rem;
 }
 
-/* Loading indicator */
 .loading {
     display: flex;
     align-items: center;
@@ -427,7 +420,6 @@ button:disabled {
     100% { transform: rotate(360deg); }
 }
 
-/* Error message */
 .error-message {
     text-align: center;
     padding: 3rem 1rem;

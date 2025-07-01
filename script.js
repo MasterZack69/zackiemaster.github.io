@@ -29,7 +29,6 @@ const CONFIG = {
     },
     storage: {
         fontSize: 'fontSize'
-        // REMOVED: sidebarState
     },
     selectors: {
         contentAreas: ['#content', '.story-content', 'main'],
@@ -73,7 +72,6 @@ async function initializeApp() {
         setupEventListeners();
         handleURLChange();
         loadUserPreferences();
-        // Ensure sidebar starts closed
         DOM.sidebar.classList.remove('active', 'mobile-active');
     } catch (error) {
         console.error('Initialization error:', error);
@@ -125,7 +123,6 @@ function populateSidebar() {
 }
 
 function handleStoryClick(e) {
-    // Only close sidebar on mobile devices
     if (window.innerWidth <= 992) {
         closeSidebar();
     }
@@ -256,26 +253,20 @@ async function handle404() {
 
 // ================= EVENT HANDLING =================
 function setupEventListeners() {
-    // Sidebar toggle
     DOM.sidebarToggle?.addEventListener('click', toggleSidebar);
     DOM.mobileMenuToggle?.addEventListener('click', toggleSidebar);
     
-    // URL changes
     window.addEventListener('hashchange', handleURLChange);
     
-    // Font size controls
     DOM.fontControls.decrease.addEventListener('click', () => adjustFontSize(-1));
     DOM.fontControls.reset.addEventListener('click', resetFontSize);
     DOM.fontControls.increase.addEventListener('click', () => adjustFontSize(1));
     
-    // Search with debouncing
     DOM.searchInput.addEventListener('input', debounce(searchStories, 90));
     
-    // Navigation
     DOM.navigation.prev.addEventListener('click', navigateToPrevStory);
     DOM.navigation.next.addEventListener('click', navigateToNextStory);
     
-    // Keyboard navigation
     document.addEventListener('keydown', handleKeyboardNavigation);
 }
 
@@ -286,7 +277,6 @@ function handleURLChange() {
 }
 
 function handleKeyboardNavigation(e) {
-    // Alt + Left/Right for story navigation
     if (e.altKey) {
         if (e.key === 'ArrowLeft') {
             navigateToPrevStory();
@@ -294,8 +284,6 @@ function handleKeyboardNavigation(e) {
             navigateToNextStory();
         }
     }
-    
-    // Escape to close sidebar
     if (e.key === 'Escape' && (DOM.sidebar.classList.contains('active') || DOM.sidebar.classList.contains('mobile-active'))) {
         closeSidebar();
     }
@@ -396,7 +384,6 @@ function applyFontSize() {
 
 // ================= PREFERENCE MANAGEMENT =================
 function loadUserPreferences() {
-    // Only load font size preference
     const savedFontSize = loadPreference(CONFIG.storage.fontSize);
     if (savedFontSize !== null) {
         state.fontSizeLevel = Math.max(
@@ -405,7 +392,6 @@ function loadUserPreferences() {
         );
         applyFontSize();
     }
-    // NO SIDEBAR STATE LOADING
 }
 
 function savePreference(key, value) {

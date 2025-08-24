@@ -6,14 +6,14 @@
       "path": "stories/home.html"
     },
     {
-      "id": "anime",
-      "title": "The Anime Journey",
-      "path": "stories/anime.html"
-    },
-    {
       "id": "atheism",
       "title": "From Islam to Atheism",
       "path": "stories/atheism.html"
+    },
+    {
+      "id": "anime",
+      "title": "The Anime Journey",
+      "path": "stories/anime.html"
     },
     {
       "id": "OTT",

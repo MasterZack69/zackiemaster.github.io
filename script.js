@@ -1,3 +1,62 @@
+function updateDeviceClass() {
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+        document.body.classList.add('mobile');
+        document.body.classList.remove('desktop');
+    } else {
+        document.body.classList.add('desktop');
+        document.body.classList.remove('mobile');
+    }
+}
+
+function adjustTitleFontSize() {
+    const titleElement = DOM.storyTitle;
+    const container = titleElement.parentElement;
+    const containerWidth = container.offsetWidth;
+    const controlsWidth = DOM.fontControls.decrease.parentElement.offsetWidth || 120;
+    const toggleWidth = DOM.mobileMenuToggle.offsetWidth || 36;
+    const separatorWidth = 30; // Approximate width for separator
+    const padding = 40; // Extra padding
+    
+    const availableWidth = containerWidth - controlsWidth - toggleWidth - separatorWidth - padding;
+    
+    // Reset to default size first
+    titleElement.style.fontSize = '';
+    
+    // Check if text overflows
+    let currentSize = parseFloat(window.getComputedStyle(titleElement).fontSize);
+    const minSize = 14;
+    
+    // Reduce font size until it fits
+    while (titleElement.scrollWidth > availableWidth && currentSize > minSize) {
+        currentSize -= 0.5;
+        titleElement.style.fontSize = currentSize + 'px';
+    }
+}
+
+// ================= SIDEBAR TITLE FONT SIZE ADJUSTMENT =================
+function adjustSidebarTitlesFontSize() {
+    const sidebarItems = DOM.storyList.querySelectorAll('li a span');
+    
+    sidebarItems.forEach(span => {
+        const link = span.parentElement;
+        const availableWidth = link.offsetWidth - 20; // 20px for padding
+        
+        // Reset to default size first
+        span.style.fontSize = '';
+        
+        // Check if text overflows
+        let currentSize = parseFloat(window.getComputedStyle(span).fontSize);
+        const minSize = 12; // Minimum font size in pixels
+        
+        // Reduce font size until it fits
+        while (span.scrollWidth > availableWidth && currentSize > minSize) {
+            currentSize -= 0.5;
+            span.style.fontSize = currentSize + 'px';
+        }
+    });
+}
+
+
 const DOM = {
     sidebar: document.getElementById('sidebar'),
     mainContent: document.getElementById('main-content'),
@@ -68,6 +127,7 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 
 async function initializeApp() {
     try {
+        updateDeviceClass();
         await loadStories();
         setupEventListeners();
         handleURLChange();
@@ -120,7 +180,11 @@ function populateSidebar() {
     
     DOM.storyList.innerHTML = '';
     DOM.storyList.appendChild(fragment);
+    
+    // Adjust sidebar title sizes after rendering
+    setTimeout(adjustSidebarTitlesFontSize, 0);
 }
+
 
 function handleStoryClick(e) {
     if (window.innerWidth <= 992) {
@@ -201,6 +265,8 @@ function updateNavButtons() {
 function updatePageTitle(title) {
     DOM.storyTitle.textContent = title;
     document.title = `${title} | MasterZack's JeevanKatha`;
+
+    setTimeout(adjustTitleFontSize, 0);
 }
 
 // ================= DISPLAY FUNCTIONS =================
@@ -257,6 +323,10 @@ function setupEventListeners() {
     DOM.mobileMenuToggle?.addEventListener('click', toggleSidebar);
     
     window.addEventListener('hashchange', handleURLChange);
+    window.addEventListener('resize', () => {
+        adjustTitleFontSize();
+        adjustSidebarTitlesFontSize();
+    });
     
     DOM.fontControls.decrease.addEventListener('click', () => adjustFontSize(-1));
     DOM.fontControls.reset.addEventListener('click', resetFontSize);

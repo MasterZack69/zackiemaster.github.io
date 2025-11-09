@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .redirect-message {
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid rgba(76, 201, 240, 0.1);
+            border-top: 4px solid #4cc9f0;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script>
+        // Redirect to hash-based routing
+        (function() {
+            var path = window.location.pathname;
+            
+            // Remove leading/trailing slashes
+            path = path.replace(/^\/+|\/+$/g, '');
+            
+            // Ignore if it's the 404.html itself or empty
+            if (path && path !== '404.html' && path !== '404') {
+                // Redirect to ABSOLUTE URL with hash route
+                window.location.replace(window.location.origin + '/#/' + path);
+            } else {
+                // Go to home with ABSOLUTE URL
+                window.location.replace(window.location.origin + '/#/home');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <div class="redirect-message">
+        <div class="spinner"></div>
+        <p>Redirecting...</p>
+    </div>
+</body>
+</html>

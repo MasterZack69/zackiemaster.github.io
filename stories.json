@@ -26,6 +26,11 @@
       "path": "stories/AI.html"
     },
     {
+      "id": "rer",
+      "title": "Ripper, Encoder, Remuxer",
+      "path": "stories/rer.html"
+    },
+    {
       "id": "quotes",
       "title": "Some Important Quotes",
       "path": "stories/quotes.html"

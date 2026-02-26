@@ -1,8 +1,7 @@
 /* ========== BASE STYLES ========== */
 :root {
-    /* AMOLED Black Theme Variables */
-    --bg-primary: #000000;
-    --bg-secondary: #000000;
+    --bg-primary: #000f0f;
+    --bg-secondary: #000f0f;
     --bg-tertiary: #121212;
     --text-primary: #ffffff;
     --text-secondary: #adb5bd;
@@ -21,7 +20,7 @@
 
 html {
     color-scheme: dark;
-    background-color: #000000;
+    background-color: #000f0f;
     height: 100%;
 }
 

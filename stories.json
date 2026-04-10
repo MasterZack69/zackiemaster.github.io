@@ -26,6 +26,11 @@
       "path": "stories/AI.html"
     },
     {
+      "id": "erotica",
+      "title": "Nicole's Night",
+      "path": "stories/erotica.html"
+    },
+    {
       "id": "rer",
       "title": "Ripper, Encoder, Remuxer",
       "path": "stories/rer.html"
